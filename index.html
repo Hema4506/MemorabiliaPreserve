@@ -1,0 +1,2541 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>MemorabiliaPreserve - Preserve Your Cherished Memories</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+  <script src="https://cdn.jsdelivr.net/npm/qrcode-generator@1.4.4/qrcode.min.js"></script>
+  <style>
+    :root {
+      --primary: #8b5ceb;
+      --primary-dark: #7a4bd8;
+      --secondary: #ff7e5f;
+      --accent: #6cdfcc;
+      --light: #f9f7fe;
+      --dark: #2d2b42;
+      --gray: #777;
+      --light-gray: #f0f0f0;
+    }
+    
+    body {
+      background-color: #f8f9fa;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      color: var(--dark);
+      line-height: 1.6;
+    }
+    
+    .navbar {
+      background: linear-gradient(135deg, var(--primary), var(--primary-dark)) !important;
+      box-shadow: 0 2px 15px rgba(0,0,0,0.1);
+      padding: 15px 0;
+    }
+    
+    .navbar-brand {
+      font-weight: 700;
+      font-size: 26px;
+      display: flex;
+      align-items: center;
+    }
+    
+    .nav-link {
+      color: rgba(255,255,255,0.9) !important;
+      font-weight: 500;
+      transition: all 0.3s;
+      padding: 8px 15px !important;
+      border-radius: 20px;
+      margin: 0 5px;
+    }
+    
+    .nav-link:hover, .nav-link.active {
+      color: white !important;
+      background: rgba(255,255,255,0.15);
+    }
+    
+    .btn-primary {
+      background: linear-gradient(135deg, var(--secondary), #ff9a8b);
+      border: none;
+      border-radius: 30px;
+      padding: 12px 30px;
+      font-weight: 600;
+      box-shadow: 0 4px 15px rgba(255, 126, 95, 0.3);
+      transition: all 0.3s;
+    }
+    
+    .btn-primary:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 6px 20px rgba(255, 126, 95, 0.4);
+    }
+    
+    .btn-secondary {
+      background: linear-gradient(135deg, var(--accent), #8deee0);
+      border: none;
+      border-radius: 30px;
+      padding: 12px 30px;
+      font-weight: 600;
+      color: var(--dark);
+      box-shadow: 0 4px 15px rgba(108, 223, 204, 0.3);
+      transition: all 0.3s;
+    }
+    
+    .btn-secondary:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 6px 20px rgba(108, 223, 204, 0.4);
+      color: var(--dark);
+    }
+    
+    .btn-outline-light {
+      border-radius: 30px;
+      padding: 10px 25px;
+      font-weight: 500;
+      border-width: 2px;
+    }
+    
+    .card {
+      border: none;
+      border-radius: 20px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+      transition: all 0.4s;
+      overflow: hidden;
+    }
+    
+    .card:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 15px 35px rgba(0,0,0,0.12);
+    }
+    
+    .service-card .card-img-top {
+      height: 220px;
+      object-fit: cover;
+      transition: transform 0.5s;
+    }
+    
+    .service-card:hover .card-img-top {
+      transform: scale(1.08);
+    }
+    
+    .hero-section {
+      background: linear-gradient(rgba(45, 43, 66, 0.85), rgba(45, 43, 66, 0.9)), url('https://images.unsplash.com/photo-1576086213369-97a306d36557?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80');
+      background-size: cover;
+      background-position: center;
+      background-attachment: fixed;
+      color: white;
+      padding: 140px 0 100px;
+      border-radius: 0 0 40px 40px;
+      margin-bottom: 70px;
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .hero-section:before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: url("data:image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M11 18c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm48 25c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm-43-7c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm63 31c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM34 90c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm56-76c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM12 86c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm28-65c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm23-11c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-6 60c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm29 22c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zM32 63c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm57-13c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-9-21c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM60 91c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM35 41c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM12 60c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2z' fill='%238b5ceb' fill-opacity='0.1' fill-rule='evenodd'/%3E%3C/svg%3E");
+      opacity: 0.5;
+    }
+    
+    .page-section {
+      display: none;
+      min-height: 70vh;
+      padding: 50px 0;
+    }
+    
+    .page-section.active {
+      display: block;
+      animation: fadeIn 0.5s;
+    }
+    
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+    
+    .wizard-step {
+      display: none;
+    }
+    
+    .wizard-step.active {
+      display: block;
+      animation: slideIn 0.5s;
+    }
+    
+    @keyframes slideIn {
+      from { transform: translateX(20px); opacity: 0; }
+      to { transform: translateX(0); opacity: 1; }
+    }
+    
+    .step-indicator {
+      display: flex;
+      justify-content: center;
+      margin-bottom: 40px;
+    }
+    
+    .step {
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      background-color: var(--light-gray);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 15px;
+      font-weight: 700;
+      color: var(--gray);
+      position: relative;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+      transition: all 0.3s;
+    }
+    
+    .step.active {
+      background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+      color: white;
+      transform: scale(1.1);
+    }
+    
+    .step.completed {
+      background: linear-gradient(135deg, var(--secondary), #ff9a8b);
+      color: white;
+    }
+    
+    .step:not(:last-child):after {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 100%;
+      width: 60px;
+      height: 3px;
+      background-color: var(--light-gray);
+      z-index: -1;
+    }
+    
+    .step.completed:after {
+      background: linear-gradient(135deg, var(--secondary), #ff9a8b);
+    }
+    
+    .order-card {
+      border-left: 5px solid var(--primary);
+    }
+    
+    .order-status {
+      padding: 6px 16px;
+      border-radius: 20px;
+      font-size: 14px;
+      font-weight: 600;
+    }
+    
+    .status-pending {
+      background: #fff3cd;
+      color: #856404;
+    }
+    
+    .status-processing {
+      background: #cce7ff;
+      color: #004085;
+    }
+    
+    .status-completed {
+      background: #d4edda;
+      color: #155724;
+    }
+    
+    .status-shipped {
+      background: #d1ecf1;
+      color: #0c5460;
+    }
+    
+    .status-cancelled {
+      background: #f8d7da;
+      color: #721c24;
+    }
+    
+    .status-delivered {
+      background: #d1edff;
+      color: #0c5a8d;
+    }
+    
+    .cart-item {
+      border-bottom: 1px solid var(--light-gray);
+      padding: 20px 0;
+      transition: all 0.3s;
+    }
+    
+    .cart-item:hover {
+      background: rgba(139, 92, 235, 0.03);
+      border-radius: 10px;
+      padding-left: 10px;
+      padding-right: 10px;
+    }
+    
+    .cart-item:last-child {
+      border-bottom: none;
+    }
+    
+    .footer {
+      background: linear-gradient(135deg, var(--dark), #1a1826);
+      color: white;
+      padding: 70px 0 30px;
+      margin-top: 80px;
+    }
+    
+    .social-icons a {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 45px;
+      height: 45px;
+      background: rgba(255,255,255,0.1);
+      border-radius: 50%;
+      color: white;
+      margin-right: 12px;
+      transition: all 0.3s;
+    }
+    
+    .social-icons a:hover {
+      background: var(--primary);
+      transform: translateY(-3px);
+    }
+    
+    .user-avatar {
+      width: 45px;
+      height: 45px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--secondary), #ff9a8b);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-weight: 600;
+      box-shadow: 0 4px 10px rgba(255, 126, 95, 0.3);
+    }
+    
+    .notification-badge {
+      position: absolute;
+      top: -5px;
+      right: -5px;
+      background: var(--secondary);
+      color: white;
+      border-radius: 50%;
+      width: 22px;
+      height: 22px;
+      font-size: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 600;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+    }
+    
+    .feature-icon {
+      width: 90px;
+      height: 90px;
+      background: rgba(139, 92, 235, 0.1);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 25px;
+      color: var(--primary);
+      font-size: 36px;
+      transition: all 0.3s;
+    }
+    
+    .feature-icon:hover {
+      transform: scale(1.1);
+      background: rgba(139, 92, 235, 0.2);
+    }
+    
+    .testimonial-card {
+      border-left: 5px solid var(--secondary);
+    }
+    
+    .rating {
+      color: #ffc107;
+    }
+    
+    /* New styles for auth page */
+    .auth-container {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+    }
+    
+    .auth-card {
+      border-radius: 25px;
+      overflow: hidden;
+      box-shadow: 0 20px 40px rgba(0,0,0,0.15);
+    }
+    
+    .auth-image {
+      background: linear-gradient(rgba(45, 43, 66, 0.85), rgba(45, 43, 66, 0.9)), url('https://images.unsplash.com/photo-1576086213369-97a306d36557?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80');
+      background-size: cover;
+      background-position: center;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      color: white;
+      padding: 50px;
+      text-align: center;
+    }
+    
+    .auth-logo {
+      font-size: 40px;
+      font-weight: 700;
+      margin-bottom: 25px;
+    }
+    
+    .auth-form {
+      padding: 50px;
+    }
+    
+    .auth-tabs {
+      display: flex;
+      margin-bottom: 35px;
+      border-bottom: 2px solid var(--light-gray);
+    }
+    
+    .auth-tab {
+      flex: 1;
+      text-align: center;
+      padding: 18px;
+      cursor: pointer;
+      font-weight: 600;
+      color: var(--gray);
+      transition: all 0.3s;
+    }
+    
+    .auth-tab.active {
+      color: var(--primary);
+      border-bottom: 3px solid var(--primary);
+    }
+    
+    .auth-content {
+      display: none;
+    }
+    
+    .auth-content.active {
+      display: block;
+    }
+    
+    /* Feedback page styles */
+    .feedback-card {
+      border-left: 5px solid var(--accent);
+    }
+    
+    .star-rating {
+      font-size: 26px;
+      color: #ddd;
+      cursor: pointer;
+    }
+    
+    .star-rating .star {
+      transition: color 0.2s;
+    }
+    
+    .star-rating .star:hover,
+    .star-rating .star.active {
+      color: #ffc107;
+    }
+    
+    .feedback-list {
+      max-height: 500px;
+      overflow-y: auto;
+    }
+    
+    /* Product Preview Styles */
+    .product-preview {
+      border: 1px solid var(--light-gray);
+      border-radius: 15px;
+      padding: 20px;
+      text-align: center;
+      background: white;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+    }
+    
+    .preview-image {
+      max-width: 100%;
+      max-height: 320px;
+      border-radius: 10px;
+      margin-bottom: 20px;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    }
+    
+    /* Order Details Modal */
+    .modal-content {
+      border-radius: 20px;
+      border: none;
+      box-shadow: 0 20px 40px rgba(0,0,0,0.15);
+    }
+    
+    .modal-header {
+      background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+      color: white;
+      border-radius: 20px 20px 0 0;
+      padding: 20px 25px;
+    }
+    
+    /* Shipping Process Styles */
+    .process-step {
+      display: flex;
+      align-items: center;
+      margin-bottom: 40px;
+      padding: 25px;
+      border-radius: 15px;
+      background: white;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+      transition: all 0.3s;
+    }
+    
+    .process-step:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+    }
+    
+    .process-icon {
+      width: 80px;
+      height: 80px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+      color: white;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 32px;
+      margin-right: 25px;
+      flex-shrink: 0;
+      box-shadow: 0 5px 15px rgba(139, 92, 235, 0.3);
+    }
+    
+    .process-content {
+      flex: 1;
+    }
+    
+    /* Item Preview in Orders */
+    .item-preview-small {
+      width: 90px;
+      height: 90px;
+      object-fit: cover;
+      border-radius: 10px;
+      margin-right: 20px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    }
+    
+    /* Tracking Timeline */
+    .timeline {
+      position: relative;
+      padding-left: 40px;
+      margin: 25px 0;
+    }
+    
+    .timeline:before {
+      content: '';
+      position: absolute;
+      left: 15px;
+      top: 0;
+      bottom: 0;
+      width: 3px;
+      background: var(--light-gray);
+    }
+    
+    .timeline-item {
+      position: relative;
+      margin-bottom: 25px;
+      padding: 15px;
+      border-radius: 10px;
+      background: white;
+      box-shadow: 0 3px 10px rgba(0,0,0,0.05);
+    }
+    
+    .timeline-item:last-child {
+      margin-bottom: 0;
+    }
+    
+    .timeline-item:before {
+      content: '';
+      position: absolute;
+      left: -32px;
+      top: 20px;
+      width: 16px;
+      height: 16px;
+      border-radius: 50%;
+      background: var(--light-gray);
+      border: 4px solid white;
+      box-shadow: 0 0 0 3px var(--light-gray);
+    }
+    
+    .timeline-item.active:before {
+      background: var(--primary);
+      box-shadow: 0 0 0 3px var(--primary);
+    }
+    
+    .timeline-item.completed:before {
+      background: var(--secondary);
+      box-shadow: 0 0 0 3px var(--secondary);
+    }
+    
+    .timeline-date {
+      font-size: 13px;
+      color: var(--gray);
+    }
+    
+    /* Delivery Date Badge */
+    .delivery-badge {
+      background: rgba(139, 92, 235, 0.1);
+      color: var(--primary);
+      padding: 8px 15px;
+      border-radius: 20px;
+      font-size: 14px;
+      font-weight: 600;
+      display: inline-flex;
+      align-items: center;
+    }
+    
+    /* QR Code Styles */
+    .qr-code-container {
+      text-align: center;
+      padding: 25px;
+      background: white;
+      border-radius: 15px;
+      margin: 20px 0;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+    }
+    
+    .qr-code {
+      margin: 0 auto;
+      max-width: 220px;
+    }
+    
+    .payment-instructions {
+      font-size: 15px;
+      color: var(--gray);
+      margin-top: 15px;
+    }
+    
+    /* Delete button in cart */
+    .delete-btn {
+      color: #dc3545;
+      background: none;
+      border: none;
+      font-size: 20px;
+      cursor: pointer;
+      transition: color 0.3s;
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    
+    .delete-btn:hover {
+      color: #bd2130;
+      background: rgba(220, 53, 69, 0.1);
+    }
+    
+    /* Section Headers */
+    .section-header {
+      text-align: center;
+      margin-bottom: 60px;
+    }
+    
+    .section-header h2 {
+      font-weight: 700;
+      color: var(--dark);
+      margin-bottom: 15px;
+      position: relative;
+      display: inline-block;
+    }
+    
+    .section-header h2:after {
+      content: '';
+      position: absolute;
+      bottom: -10px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 80px;
+      height: 4px;
+      background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+      border-radius: 2px;
+    }
+    
+    .section-header p {
+      color: var(--gray);
+      font-size: 18px;
+      max-width: 700px;
+      margin: 0 auto;
+    }
+    
+    /* Form Styling */
+    .form-control, .form-select {
+      border-radius: 12px;
+      padding: 12px 18px;
+      border: 2px solid #eaeaea;
+      transition: all 0.3s;
+    }
+    
+    .form-control:focus, .form-select:focus {
+      border-color: var(--primary);
+      box-shadow: 0 0 0 0.25rem rgba(139, 92, 235, 0.15);
+    }
+    
+    /* Custom checkbox and radio */
+    .form-check-input:checked {
+      background-color: var(--primary);
+      border-color: var(--primary);
+    }
+    
+    /* Hero section enhancements */
+    .hero-badge {
+      display: inline-block;
+      background: rgba(255,255,255,0.15);
+      color: white;
+      padding: 8px 20px;
+      border-radius: 30px;
+      font-size: 14px;
+      font-weight: 600;
+      margin-bottom: 20px;
+      backdrop-filter: blur(10px);
+    }
+    
+    /* Floating animation */
+    @keyframes float {
+      0% { transform: translateY(0px); }
+      50% { transform: translateY(-10px); }
+      100% { transform: translateY(0px); }
+    }
+    
+    .floating {
+      animation: float 5s ease-in-out infinite;
+    }
+  </style>
+</head>
+<body>
+  <!-- Navigation -->
+  <nav class="navbar navbar-expand-lg navbar-dark">
+    <div class="container">
+      <a class="navbar-brand" href="#" onclick="showPage('homePage')">
+        <i class="fas fa-gem me-2"></i>MemorabiliaPreserve
+      </a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav me-auto">
+          <li class="nav-item">
+            <a class="nav-link active" href="#" onclick="showPage('homePage')">Home</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#" onclick="showPage('servicesPage')">Services</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#" onclick="showPage('customizePage')">Customize</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#" onclick="showPage('ordersPage')">My Orders</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#" onclick="showPage('feedbackPage')">Feedback</a>
+          </li>
+        </ul>
+        <div class="d-flex align-items-center">
+          <div class="position-relative me-3">
+            <a href="#" class="text-white" onclick="showPage('cartPage')">
+              <i class="fas fa-shopping-cart fa-lg"></i>
+              <span class="notification-badge" id="cartCount">0</span>
+            </a>
+          </div>
+          <div class="dropdown" id="userDropdownContainer">
+            <a href="#" class="d-flex align-items-center text-white text-decoration-none dropdown-toggle" id="userDropdown" data-bs-toggle="dropdown">
+              <div class="user-avatar me-2" id="userAvatar">
+                <span>U</span>
+              </div>
+              <span id="userName">User</span>
+            </a>
+            <ul class="dropdown-menu dropdown-menu-end">
+              <li><a class="dropdown-item" href="#" onclick="showPage('profilePage')"><i class="fas fa-user me-2"></i>Profile</a></li>
+              <li><a class="dropdown-item" href="#" onclick="showPage('ordersPage')"><i class="fas fa-box me-2"></i>My Orders</a></li>
+              <li><hr class="dropdown-divider"></li>
+              <li><a class="dropdown-item" href="#" onclick="logout()"><i class="fas fa-sign-out-alt me-2"></i>Logout</a></li>
+            </ul>
+          </div>
+          <div id="authButtons" class="d-none">
+            <button class="btn btn-outline-light me-2" onclick="showPage('authPage')">Sign In</button>
+            <button class="btn btn-primary" onclick="showPage('authPage')">Sign Up</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Home Page -->
+  <section class="page-section active" id="homePage">
+    <div class="hero-section">
+      <div class="container text-center">
+        <div class="hero-badge">
+          <i class="fas fa-star me-2"></i>Premium Preservation Services
+        </div>
+        <h1 class="display-3 fw-bold mb-4">Transform Your Cherished Memories Into Timeless Treasures</h1>
+        <p class="lead mb-5">At MemorabiliaPreserve, we specialize in beautifully preserving your most precious items. From wedding bouquets to baby's first shoes, we transform your sentimental pieces into stunning display art that will be cherished for generations.</p>
+        <button class="btn btn-primary btn-lg me-3" onclick="checkAuthAndNavigate('customizePage')">
+          <i class="fas fa-magic me-2"></i>Start Preserving Now
+        </button>
+        <button class="btn btn-outline-light btn-lg" onclick="showPage('servicesPage')">
+          <i class="fas fa-gem me-2"></i>View Services
+        </button>
+      </div>
+    </div>
+
+    <div class="container">
+      <div class="section-header">
+        <h2>Our Unique Preservation Process</h2>
+        <p>We make preserving your precious memories simple and seamless with our carefully crafted process</p>
+      </div>
+      
+      <div class="row">
+        <div class="col-md-12">
+          <div class="process-step">
+            <div class="process-icon floating">
+              <i class="fas fa-box-open"></i>
+            </div>
+            <div class="process-content">
+              <h4>1. Send Us Your Item</h4>
+              <p>Package your cherished item securely and ship it to our preservation studio. We'll provide you with a prepaid shipping label and detailed instructions to ensure your item arrives safely.</p>
+            </div>
+          </div>
+          <div class="process-step">
+            <div class="process-icon floating" style="animation-delay: 0.5s;">
+              <i class="fas fa-laptop"></i>
+            </div>
+            <div class="process-content">
+              <h4>2. Customize Online</h4>
+              <p>Use our intuitive online customization tool to design your preservation piece. Choose from various preservation methods, add personal messages, select colors and finishes, and visualize the final product before we begin.</p>
+            </div>
+          </div>
+          <div class="process-step">
+            <div class="process-icon floating" style="animation-delay: 1s;">
+              <i class="fas fa-hands"></i>
+            </div>
+            <div class="process-content">
+              <h4>3. Expert Preservation</h4>
+              <p>Our skilled artisans carefully preserve your item using premium materials and techniques. Whether it's crystal-clear resin, museum-grade glass, or embedded crystals, we treat each piece with the utmost care and attention to detail.</p>
+            </div>
+          </div>
+          <div class="process-step">
+            <div class="process-icon floating" style="animation-delay: 1.5s;">
+              <i class="fas fa-shipping-fast"></i>
+            </div>
+            <div class="process-content">
+              <h4>4. Receive Your Treasure</h4>
+              <p>We carefully package and ship your completed preservation piece back to you, ready to display and cherish for generations. Each piece comes with a certificate of authenticity and care instructions.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="section-header mt-5">
+        <h2>Our Premium Services</h2>
+        <p>Choose from our range of expert preservation techniques to showcase your memories</p>
+      </div>
+
+      <div class="row mb-5">
+        <div class="col-md-4 mb-4">
+          <div class="card service-card h-100">
+            <img src="https://images.unsplash.com/photo-1591283319449-92f3772ad49a" class="card-img-top" alt="Resin Art">
+            <div class="card-body">
+              <h5 class="card-title">Resin Preservation</h5>
+              <p class="card-text">Seal your cherished items like flowers, jewelry, or memorabilia in elegant, crystal-clear resin art pieces that capture every detail forever.</p>
+              <div class="d-flex justify-content-between align-items-center">
+                <span class="text-primary fw-bold">Starting at ₹500</span>
+                <button class="btn btn-primary btn-sm" onclick="checkAuthAndNavigateService('Resin Preservation')">Select</button>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-4 mb-4">
+          <div class="card service-card h-100">
+            <img src="https://images.unsplash.com/photo-1529946825183-9b977f4b3ae1" class="card-img-top" alt="Glass Frame">
+            <div class="card-body">
+              <h5 class="card-title">Glass Frame Art</h5>
+              <p class="card-text">Display your memories in premium glass frames with custom engravings, LED lighting options, and museum-quality preservation.</p>
+              <div class="d-flex justify-content-between align-items-center">
+                <span class="text-primary fw-bold">Starting at ₹800</span>
+                <button class="btn btn-primary btn-sm" onclick="checkAuthAndNavigateService('Glass Frame Art')">Select</button>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-4 mb-4">
+          <div class="card service-card h-100">
+            <img src="https://images.unsplash.com/photo-1501594907352-04cda38ebc29" class="card-img-top" alt="Crystal Work">
+            <div class="card-body">
+              <h5 class="card-title">Crystal Embedding</h5>
+              <p class="card-text">Create timeless pieces with embedded crystals, precious metals, and optional lighting effects for a truly luxurious preservation.</p>
+              <div class="d-flex justify-content-between align-items-center">
+                <span class="text-primary fw-bold">Starting at ₹1200</span>
+                <button class="btn btn-primary btn-sm" onclick="checkAuthAndNavigateService('Crystal Embedding')">Select</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="section-header">
+        <h2>Customer Testimonials</h2>
+        <p>See what our customers are saying about their preserved memories</p>
+      </div>
+
+      <div class="row">
+        <div class="col-md-4 mb-4">
+          <div class="card testinomial-card h-100 p-4">
+            <div class="d-flex mb-3">
+              <div class="user-avatar me-3">
+                <span>R</span>
+              </div>
+              <div>
+                <h5 class="mb-0">Rahul Sharma</h5>
+                <div class="rating">
+                  <i class="fas fa-star"></i>
+                  <i class="fas fa-star"></i>
+                  <i class="fas fa-star"></i>
+                  <i class="fas fa-star"></i>
+                  <i class="fas fa-star"></i>
+                </div>
+              </div>
+            </div>
+            <p>"Preserved my wedding bouquet in resin. It looks absolutely stunning and captures that special day perfectly! The process was seamless and the result exceeded my expectations."</p>
+          </div>
+        </div>
+        <div class="col-md-4 mb-4">
+          <div class="card testinomial-card h-100 p-4">
+            <div class="d-flex mb-3">
+              <div class="user-avatar me-3">
+                <span>P</span>
+              </div>
+              <div>
+                <h5 class="mb-0">Priya Patel</h5>
+                <div class="rating">
+                  <i class="fas fa-star"></i>
+                  <i class="fas fa-star"></i>
+                  <i class="fas fa-star"></i>
+                  <i class="fas fa-star"></i>
+                  <i class="fas fa-star-half-alt"></i>
+                </div>
+              </div>
+            </div>
+            <p>"The crystal embedding of my baby's first shoes is the centerpiece of our nursery. Excellent craftsmanship and attention to detail! The team was wonderful to work with."</p>
+          </div>
+        </div>
+        <div class="col-md-4 mb-4">
+          <div class="card testinomial-card h-100 p-4">
+            <div class="d-flex mb-3">
+              <div class="user-avatar me-3">
+                <span>A</span>
+              </div>
+              <div>
+                <h5 class="mb-0">Amit Kumar</h5>
+                <div class="rating">
+                  <i class="fas fa-star"></i>
+                  <i class="fas fa-star"></i>
+                  <i class="fas fa-star"></i>
+                  <i class="fas fa-star"></i>
+                  <i class="fas fa-star"></i>
+                </div>
+              </div>
+            </div>
+            <p>"Had my grandfather's watch preserved in a glass frame. The quality exceeded my expectations. The customization process was fantastic and the final product is a family heirloom."</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Services Page -->
+  <section class="page-section" id="servicesPage">
+    <div class="container py-5">
+      <div class="section-header">
+        <h2>Our Preservation Services</h2>
+        <p>Choose the perfect preservation method for your cherished items</p>
+      </div>
+      <div class="row">
+        <div class="col-md-6 mb-4">
+          <div class="card h-100">
+            <div class="row g-0">
+              <div class="col-md-4">
+                <img src="https://images.unsplash.com/photo-1591283319449-92f3772ad49a" class="img-fluid rounded-start h-100" style="object-fit: cover;" alt="Resin Art">
+              </div>
+              <div class="col-md-8">
+                <div class="card-body">
+                  <h5 class="card-title">Resin Preservation</h5>
+                  <p class="card-text">Perfect for flowers, jewelry, tickets, and small memorabilia. Crystal-clear resin captures every detail forever.</p>
+                  <div class="d-flex justify-content-between align-items-center">
+                    <span class="text-primary fw-bold">Starting at ₹500</span>
+                    <button class="btn btn-primary" onclick="checkAuthAndNavigateService('Resin Preservation')">Select Service</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-6 mb-4">
+          <div class="card h-100">
+            <div class="row g-0">
+              <div class="col-md-4">
+                <img src="https://images.unsplash.com/photo-1529946825183-9b977f4b3ae1" class="img-fluid rounded-start h-100" style="object-fit: cover;" alt="Glass Frame">
+              </div>
+              <div class="col-md-8">
+                <div class="card-body">
+                  <h5 class="card-title">Glass Frame Art</h5>
+                  <p class="card-text">Ideal for larger items, photographs, and collections. Custom engraving available.</p>
+                  <div class="d-flex justify-content-between align-items-center">
+                    <span class="text-primary fw-bold">Starting at ₹800</span>
+                    <button class="btn btn-primary" onclick="checkAuthAndNavigateService('Glass Frame Art')">Select Service</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-6 mb-4">
+          <div class="card h-100">
+            <div class="row g-0">
+              <div class="col-md-4">
+                <img src="https://images.unsplash.com/photo-1501594907352-04cda38ebc29" class="img-fluid rounded-start h-100" style="object-fit: cover;" alt="Crystal Work">
+              </div>
+              <div class="col-md-8">
+                <div class="card-body">
+                  <h5 class="card-title">Crystal Embedding</h5>
+                  <p class="card-text">Luxury option with embedded crystals, precious metals, and optional LED lighting.</p>
+                  <div class="d-flex justify-content-between align-items-center">
+                    <span class="text-primary fw-bold">Starting at ₹1200</span>
+                    <button class="btn btn-primary" onclick="checkAuthAndNavigateService('Crystal Embedding')">Select Service</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-6 mb-4">
+          <div class="card h-100">
+            <div class="row g-0">
+              <div class="col-md-4">
+                <img src="https://images.unsplash.com/photo-1586023492125-27b2c045efd7" class="img-fluid rounded-start h-100" style="object-fit: cover;" alt="Shadow Box">
+              </div>
+              <div class="col-md-8">
+                <div class="card-body">
+                  <h5 class="card-title">Shadow Box Display</h5>
+                  <p class="card-text">Multi-dimensional display for sports memorabilia, military items, and collections.</p>
+                  <div class="d-flex justify-content-between align-items-center">
+                    <span class="text-primary fw-bold">Starting at ₹1500</span>
+                    <button class="btn btn-primary" onclick="checkAuthAndNavigateService('Shadow Box Display')">Select Service</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Customize Page with Wizard Steps -->
+  <section class="page-section" id="customizePage">
+    <div class="container py-5">
+      <div class="row justify-content-center">
+        <div class="col-lg-10">
+          <div class="card p-4">
+            <h3 class="text-center mb-4">Customize Your Preservation</h3>
+            
+            <div class="step-indicator">
+              <div class="step active" id="step1-indicator">1</div>
+              <div class="step" id="step2-indicator">2</div>
+              <div class="step" id="step3-indicator">3</div>
+              <div class="step" id="step4-indicator">4</div>
+              <div class="step" id="step5-indicator">5</div>
+            </div>
+            
+            <div class="wizard-step active" id="step1">
+              <h5>Step 1: Select Service & Items</h5>
+              <div class="mb-3">
+                <label class="form-label">Preservation Type</label>
+                <select id="preserveType" class="form-select" onchange="updatePrice()">
+                  <option value="Resin Preservation" data-base="500">Resin Preservation - Starting at ₹500</option>
+                  <option value="Glass Frame Art" data-base="800">Glass Frame Art - Starting at ₹800</option>
+                  <option value="Crystal Embedding" data-base="1200">Crystal Embedding - Starting at ₹1200</option>
+                  <option value="Shadow Box Display" data-base="1500">Shadow Box Display - Starting at ₹1500</option>
+                </select>
+              </div>
+              <div class="mb-3">
+                <label class="form-label">Item Name</label>
+                <input id="itemName" class="form-control" placeholder="e.g., Wedding Bouquet, Baby Shoes, Concert Tickets" />
+              </div>
+              <div class="mb-3">
+                <label class="form-label">Item Description</label>
+                <textarea id="itemDescription" class="form-control" rows="3" placeholder="Describe the item you want to preserve and its significance..."></textarea>
+              </div>
+              <div class="mb-3">
+                <label class="form-label">Upload Reference Images</label>
+                <input type="file" id="uploadImage" class="form-control" multiple accept="image/*" onchange="previewImages(event)" />
+                <div class="form-text">Upload photos of your items for reference (max 5 images). These help our artisans understand your item better.</div>
+                <div id="imagePreview" class="mt-2"></div>
+              </div>
+              <div class="text-end">
+                <button class="btn btn-primary" onclick="nextStep(2)">Next <i class="fas fa-arrow-right ms-1"></i></button>
+              </div>
+            </div>
+            
+            <div class="wizard-step" id="step2">
+              <h5>Step 2: Customization Details</h5>
+              <div class="mb-3">
+                <label class="form-label">Size</label>
+                <select id="sizeOption" class="form-select" onchange="updatePrice()">
+                  <option value="small" data-multiplier="1">Small (5x5 inches)</option>
+                  <option value="medium" data-multiplier="1.6">Medium (8x8 inches)</option>
+                  <option value="large" data-multiplier="2.4">Large (12x12 inches)</option>
+                  <option value="custom" data-multiplier="3">Custom Size</option>
+                </select>
+              </div>
+              <div class="mb-3">
+                <label class="form-label">Color & Finish</label>
+                <select id="finishOption" class="form-select" onchange="updatePrice()">
+                  <option value="clear" data-add="0">Clear Finish</option>
+                  <option value="tinted" data-add="100">Tinted Finish (+₹100)</option>
+                  <option value="glitter" data-add="150">Glitter Finish (+₹150)</option>
+                  <option value="metallic" data-add="200">Metallic Finish (+₹200)</option>
+                </select>
+              </div>
+              <div class="mb-3">
+                <label class="form-label">Custom Message (Optional)</label>
+                <textarea id="customMessage" class="form-control" placeholder="Add a personalized message or engraving text..."></textarea>
+              </div>
+              <div class="mb-3">
+                <label class="form-label">Special Instructions</label>
+                <textarea id="specialInstructions" class="form-control" rows="3" placeholder="Any specific instructions for our artisans regarding your item..."></textarea>
+              </div>
+              <div class="d-flex justify-content-between">
+                <button class="btn btn-outline-secondary" onclick="prevStep(1)"><i class="fas fa-arrow-left me-1"></i> Back</button>
+                <button class="btn btn-primary" onclick="nextStep(3)">Next <i class="fas fa-arrow-right ms-1"></i></button>
+              </div>
+            </div>
+            
+            <div class="wizard-step" id="step3">
+              <h5>Step 3: Review & Pricing</h5>
+              <div class="row">
+                <div class="col-md-6">
+                  <div class="card bg-light p-3 mb-4">
+                    <h6>Order Summary</h6>
+                    <div class="row">
+                      <div class="col-12">
+                        <p class="mb-1"><strong>Service:</strong> <span id="summaryService">Resin Preservation</span></p>
+                        <p class="mb-1"><strong>Item:</strong> <span id="summaryItem">-</span></p>
+                        <p class="mb-1"><strong>Size:</strong> <span id="summarySize">Small</span></p>
+                        <p class="mb-1"><strong>Finish:</strong> <span id="summaryFinish">Clear</span></p>
+                        <p class="mb-1"><strong>Custom Message:</strong> <span id="summaryMessage">None</span></p>
+                        <p class="mb-1"><strong>Special Instructions:</strong> <span id="summaryInstructions">None</span></p>
+                      </div>
+                    </div>
+                  </div>
+                  
+                  <div class="card bg-light p-3 mb-4">
+                    <h6>Price Breakdown</h6>
+                    <div class="d-flex justify-content-between mb-2">
+                      <span>Base Price:</span>
+                      <span id="basePrice">₹500</span>
+                    </div>
+                    <div class="d-flex justify-content-between mb-2">
+                      <span>Size Upgrade:</span>
+                      <span id="sizePrice">₹0</span>
+                    </div>
+                    <div class="d-flex justify-content-between mb-2">
+                      <span>Finish Upgrade:</span>
+                      <span id="finishPrice">₹0</span>
+                    </div>
+                    <hr>
+                    <div class="d-flex justify-content-between">
+                      <strong>Total Price:</strong>
+                      <strong id="totalPrice">₹500</strong>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="product-preview">
+                    <h6>Product Preview</h6>
+                    <div id="previewImageContainer">
+                      <img src="https://images.unsplash.com/photo-1591283319449-92f3772ad49a" class="preview-image" id="previewImage" alt="Product Preview">
+                    </div>
+                    <p class="small text-muted">This is a representation of how your preserved item might look. Actual result may vary based on your item and customization.</p>
+                  </div>
+                </div>
+              </div>
+              
+              <div class="d-flex justify-content-between">
+                <button class="btn btn-outline-secondary" onclick="prevStep(2)"><i class="fas fa-arrow-left me-1"></i> Back</button>
+                <button class="btn btn-primary" onclick="nextStep(4)">Continue to Shipping <i class="fas fa-arrow-right ms-1"></i></button>
+              </div>
+            </div>
+            
+            <div class="wizard-step" id="step4">
+              <h5>Step 4: Shipping Information</h5>
+              <div class="row">
+                <div class="col-md-12">
+                  <div class="card p-4 mb-4">
+                    <h6>Shipping Information</h6>
+                    <div class="mb-3">
+                      <label class="form-label">Full Name</label>
+                      <input type="text" id="shippingName" class="form-control" placeholder="Your full name">
+                    </div>
+                    <div class="mb-3">
+                      <label class="form-label">Email</label>
+                      <input type="email" id="shippingEmail" class="form-control" placeholder="Your email address">
+                    </div>
+                    <div class="mb-3">
+                      <label class="form-label">Phone</label>
+                      <input type="tel" id="shippingPhone" class="form-control" placeholder="Your phone number">
+                    </div>
+                    <div class="mb-3">
+                      <label class="form-label">Address</label>
+                      <textarea id="shippingAddress" class="form-control" rows="3" placeholder="Your complete address"></textarea>
+                    </div>
+                  </div>
+                  
+                  <div class="card p-4">
+                    <h6>Item Shipping Instructions</h6>
+                    <p class="small text-muted">After completing your order, we'll email you a prepaid shipping label. Please use this label to send your item to our preservation studio.</p>
+                    <div class="alert alert-info">
+                      <i class="fas fa-info-circle me-2"></i>
+                      <strong>Important:</strong> Package your item securely to prevent damage during transit. We recommend using bubble wrap and a sturdy box.
+                    </div>
+                  </div>
+                </div>
+              </div>
+              
+              <div class="d-flex justify-content-between mt-4">
+                <button class="btn btn-outline-secondary" onclick="prevStep(3)"><i class="fas fa-arrow-left me-1"></i> Back</button>
+                <div>
+                  <button class="btn btn-secondary me-2" onclick="addToCart()"><i class="fas fa-cart-plus me-1"></i> Add to Cart</button>
+                  <button class="btn btn-primary" onclick="nextStep(5)">Proceed to Payment <i class="fas fa-credit-card ms-1"></i></button>
+                </div>
+              </div>
+            </div>
+            
+            <div class="wizard-step" id="step5">
+              <h5>Step 5: Payment</h5>
+              <div class="row">
+                <div class="col-md-12">
+                  <div class="card p-4 mb-4">
+                    <h6>Payment Method</h6>
+                    <div class="form-check mb-2">
+                      <input class="form-check-input" type="radio" name="paymentMethod" id="creditCard" value="credit" checked>
+                      <label class="form-check-label" for="creditCard">
+                        Credit/Debit Card
+                      </label>
+                    </div>
+                    <div class="form-check mb-2">
+                      <input class="form-check-input" type="radio" name="paymentMethod" id="paypal" value="paypal">
+                      <label class="form-check-label" for="paypal">
+                        PayPal
+                      </label>
+                    </div>
+                    <div class="form-check mb-3">
+                      <input class="form-check-input" type="radio" name="paymentMethod" id="upi" value="upi">
+                      <label class="form-check-label" for="upi">
+                        UPI Payment
+                      </label>
+                    </div>
+                    
+                    <div id="cardDetails">
+                      <div class="mb-3">
+                        <label class="form-label">Card Number</label>
+                        <input type="text" id="cardNumber" class="form-control" placeholder="1234 5678 9012 3456">
+                      </div>
+                      <div class="row">
+                        <div class="col-md-6 mb-3">
+                          <label class="form-label">Expiry Date</label>
+                          <input type="text" id="expiryDate" class="form-control" placeholder="MM/YY">
+                        </div>
+                        <div class="col-md-6 mb-3">
+                          <label class="form-label">CVV</label>
+                          <input type="text" id="cvv" class="form-control" placeholder="123">
+                        </div>
+                      </div>
+                    </div>
+                    
+                    <div id="qrPaymentDetails" class="d-none">
+                      <div class="qr-code-container">
+                        <div id="qrCode"></div>
+                        <p class="payment-instructions" id="paymentInstructions">Scan this QR code to complete your payment</p>
+                      </div>
+                    </div>
+                    
+                    <div class="d-grid">
+                      <button class="btn btn-success" onclick="placeOrder()"><i class="fas fa-lock me-2"></i> Place Order & Pay</button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              
+              <div class="d-flex justify-content-between">
+                <button class="btn btn-outline-secondary" onclick="prevStep(4)"><i class="fas fa-arrow-left me-1"></i> Back</button>
+                <button class="btn btn-outline-primary" onclick="addToCart()"><i class="fas fa-cart-plus me-1"></i> Add to Cart</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Cart Page -->
+  <section class="page-section" id="cartPage">
+    <div class="container py-5">
+      <h2 class="mb-4">Shopping Cart</h2>
+      <div class="row">
+        <div class="col-lg-8">
+          <div class="card p-4 mb-4">
+            <div id="cartItems">
+              <div class="text-center py-5">
+                <i class="fas fa-shopping-cart fa-3x text-muted mb-3"></i>
+                <h5 class="text-muted">Your cart is empty</h5>
+                <p class="text-muted">Add some beautiful preservation items to get started!</p>
+                <button class="btn btn-primary mt-2" onclick="showPage('customizePage')">Start Preserving</button>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-4">
+          <div class="card p-4">
+            <h5 class="mb-3">Order Summary</h5>
+            <div class="d-flex justify-content-between mb-2">
+              <span>Subtotal:</span>
+              <span id="cartSubtotal">₹0</span>
+            </div>
+            <div class="d-flex justify-content-between mb-2">
+              <span>Shipping:</span>
+              <span id="cartShipping">₹0</span>
+            </div>
+            <div class="d-flex justify-content-between mb-3">
+              <span>Tax:</span>
+              <span id="cartTax">₹0</span>
+            </div>
+            <hr>
+            <div class="d-flex justify-content-between mb-4">
+              <strong>Total:</strong>
+              <strong id="cartTotal">₹0</strong>
+            </div>
+            <button class="btn btn-primary w-100 mb-2" onclick="checkoutFromCart()">Proceed to Checkout</button>
+            <button class="btn btn-outline-secondary w-100" onclick="showPage('customizePage')">Continue Shopping</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Orders Page -->
+  <section class="page-section" id="ordersPage">
+    <div class="container py-5">
+      <h2 class="mb-4">My Orders</h2>
+      <div id="ordersList">
+        <div class="card p-4 text-center">
+          <i class="fas fa-box-open fa-3x text-muted mb-3"></i>
+          <h5 class="text-muted">No orders yet</h5>
+          <p class="text-muted">When you place orders, they will appear here</p>
+          <button class="btn btn-primary mt-2" onclick="showPage('customizePage')">Start Your First Order</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Profile Page -->
+  <section class="page-section" id="profilePage">
+    <div class="container py-5">
+      <div class="row justify-content-center">
+        <div class="col-lg-8">
+          <div class="card p-4">
+            <h3 class="mb-4">My Profile</h3>
+            <div class="row">
+              <div class="col-md-4 text-center mb-4">
+                <div class="user-avatar mx-auto mb-3" style="width: 100px; height: 100px; font-size: 40px;">
+                  <span id="profileAvatar">U</span>
+                </div>
+                <h5 id="profileName">User Name</h5>
+                <p class="text-muted" id="profileEmail">user@example.com</p>
+              </div>
+              <div class="col-md-8">
+                <div class="mb-3">
+                  <label class="form-label">Full Name</label>
+                  <input type="text" id="profileNameInput" class="form-control" value="User Name">
+                </div>
+                <div class="mb-3">
+                  <label class="form-label">Email Address</label>
+                  <input type="email" id="profileEmailInput" class="form-control" value="user@example.com">
+                </div>
+                <div class="mb-3">
+                  <label class="form-label">Phone Number</label>
+                  <input type="tel" id="profilePhone" class="form-control" placeholder="Your phone number">
+                </div>
+                <div class="mb-3">
+                  <label class="form-label">Address</label>
+                  <textarea id="profileAddress" class="form-control" rows="3" placeholder="Your address"></textarea>
+                </div>
+                <button class="btn btn-primary" onclick="updateProfile()">Update Profile</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Authentication Page -->
+  <section class="page-section" id="authPage">
+    <div class="auth-container">
+      <div class="container">
+        <div class="row justify-content-center">
+          <div class="col-lg-10">
+            <div class="card auth-card">
+              <div class="row g-0">
+                <div class="col-lg-6 d-none d-lg-block">
+                  <div class="auth-image h-100">
+                    <div class="auth-logo">
+                      <i class="fas fa-gem me-2"></i>MemorabiliaPreserve
+                    </div>
+                    <h3 class="mb-3">Preserve Your Precious Memories</h3>
+                    <p class="text-center">Join thousands of customers who have transformed their cherished items into beautiful keepsakes.</p>
+                  </div>
+                </div>
+                <div class="col-lg-6">
+                  <div class="auth-form">
+                    <div class="auth-tabs">
+                      <div class="auth-tab active" onclick="switchAuthTab('signin')">Sign In</div>
+                      <div class="auth-tab" onclick="switchAuthTab('signup')">Sign Up</div>
+                    </div>
+                    
+                    <div class="auth-content active" id="signinContent">
+                      <h4 class="mb-4">Welcome Back</h4>
+                      <div class="mb-3">
+                        <label class="form-label">Email Address</label>
+                        <input type="email" id="signinEmail" class="form-control" placeholder="Enter your email">
+                      </div>
+                      <div class="mb-3">
+                        <label class="form-label">Password</label>
+                        <input type="password" id="signinPassword" class="form-control" placeholder="Enter your password">
+                      </div>
+                      <div class="mb-3 form-check">
+                        <input type="checkbox" class="form-check-input" id="rememberMe">
+                        <label class="form-check-label" for="rememberMe">Remember me</label>
+                      </div>
+                      <button class="btn btn-primary w-100 mb-3" onclick="signIn()">Sign In</button>
+                      <div class="text-center">
+                        <a href="#" class="text-decoration-none">Forgot your password?</a>
+                      </div>
+                    </div>
+                    
+                    <div class="auth-content" id="signupContent">
+                      <h4 class="mb-4">Create Account</h4>
+                      <div class="mb-3">
+                        <label class="form-label">Full Name</label>
+                        <input type="text" id="signupName" class="form-control" placeholder="Enter your full name">
+                      </div>
+                      <div class="mb-3">
+                        <label class="form-label">Email Address</label>
+                        <input type="email" id="signupEmail" class="form-control" placeholder="Enter your email">
+                      </div>
+                      <div class="mb-3">
+                        <label class="form-label">Password</label>
+                        <input type="password" id="signupPassword" class="form-control" placeholder="Create a password">
+                      </div>
+                      <div class="mb-3">
+                        <label class="form-label">Confirm Password</label>
+                        <input type="password" id="signupConfirmPassword" class="form-control" placeholder="Confirm your password">
+                      </div>
+                      <div class="mb-3 form-check">
+                        <input type="checkbox" class="form-check-input" id="agreeTerms">
+                        <label class="form-check-label" for="agreeTerms">I agree to the <a href="#" class="text-decoration-none">Terms & Conditions</a></label>
+                      </div>
+                      <button class="btn btn-primary w-100" onclick="signUp()">Create Account</button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Feedback Page -->
+  <section class="page-section" id="feedbackPage">
+    <div class="container py-5">
+      <div class="row">
+        <div class="col-lg-8 mx-auto">
+          <div class="card p-4 mb-5">
+            <h3 class="mb-4">Share Your Experience</h3>
+            <p class="text-muted mb-4">We value your feedback! Please share your experience with our preservation services.</p>
+            
+            <div class="mb-4">
+              <label class="form-label">Rate Your Experience</label>
+              <div class="star-rating" id="starRating">
+                <span class="star" data-rating="1"><i class="far fa-star"></i></span>
+                <span class="star" data-rating="2"><i class="far fa-star"></i></span>
+                <span class="star" data-rating="3"><i class="far fa-star"></i></span>
+                <span class="star" data-rating="4"><i class="far fa-star"></i></span>
+                <span class="star" data-rating="5"><i class="far fa-star"></i></span>
+              </div>
+              <input type="hidden" id="ratingValue" value="0">
+            </div>
+            
+            <div class="mb-3">
+              <label class="form-label">Your Name</label>
+              <input type="text" id="feedbackName" class="form-control" placeholder="Enter your name">
+            </div>
+            
+            <div class="mb-3">
+              <label class="form-label">Your Email</label>
+              <input type="email" id="feedbackEmail" class="form-control" placeholder="Enter your email">
+            </div>
+            
+            <div class="mb-3">
+              <label class="form-label">Service Used</label>
+              <select id="feedbackService" class="form-select">
+                <option value="">Select a service</option>
+                <option value="Resin Preservation">Resin Preservation</option>
+                <option value="Glass Frame Art">Glass Frame Art</option>
+                <option value="Crystal Embedding">Crystal Embedding</option>
+                <option value="Shadow Box Display">Shadow Box Display</option>
+              </select>
+            </div>
+            
+            <div class="mb-3">
+              <label class="form-label">Your Feedback</label>
+              <textarea id="feedbackMessage" class="form-control" rows="5" placeholder="Tell us about your experience..."></textarea>
+            </div>
+            
+            <button class="btn btn-primary" onclick="submitFeedback()">Submit Feedback</button>
+          </div>
+          
+          <h3 class="mb-4">What Our Customers Say</h3>
+          <div class="feedback-list" id="feedbackList">
+            <!-- Feedback items will be loaded here -->
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-4 mb-4">
+          <h5><i class="fas fa-gem me-2"></i>MemorabiliaPreserve</h5>
+          <p>Transforming your precious memories into beautiful, lasting keepsakes through expert preservation techniques. We help you cherish your most meaningful moments forever.</p>
+          <div class="social-icons">
+            <a href="#"><i class="fab fa-facebook-f"></i></a>
+            <a href="#"><i class="fab fa-instagram"></i></a>
+            <a href="#"><i class="fab fa-pinterest"></i></a>
+            <a href="#"><i class="fab fa-twitter"></i></a>
+          </div>
+        </div>
+        <div class="col-md-2 mb-4">
+          <h5>Quick Links</h5>
+          <ul class="list-unstyled">
+            <li><a href="#" class="text-light text-decoration-none" onclick="showPage('homePage')">Home</a></li>
+            <li><a href="#" class="text-light text-decoration-none" onclick="showPage('servicesPage')">Services</a></li>
+            <li><a href="#" class="text-light text-decoration-none" onclick="showPage('customizePage')">Customize</a></li>
+            <li><a href="#" class="text-light text-decoration-none" onclick="showPage('ordersPage')">My Orders</a></li>
+            <li><a href="#" class="text-light text-decoration-none" onclick="showPage('feedbackPage')">Feedback</a></li>
+          </ul>
+        </div>
+        <div class="col-md-3 mb-4">
+          <h5>Services</h5>
+          <ul class="list-unstyled">
+            <li><a href="#" class="text-light text-decoration-none" onclick="checkAuthAndNavigateService('Resin Preservation')">Resin Preservation</a></li>
+            <li><a href="#" class="text-light text-decoration-none" onclick="checkAuthAndNavigateService('Glass Frame Art')">Glass Frame Art</a></li>
+            <li><a href="#" class="text-light text-decoration-none" onclick="checkAuthAndNavigateService('Crystal Embedding')">Crystal Embedding</a></li>
+            <li><a href="#" class="text-light text-decoration-none" onclick="checkAuthAndNavigateService('Shadow Box Display')">Shadow Box Display</a></li>
+          </ul>
+        </div>
+        <div class="col-md-3 mb-4">
+          <h5>Contact Us</h5>
+          <ul class="list-unstyled">
+            <li><i class="fas fa-map-marker-alt me-2"></i> 123 Memory Lane, Artisan City</li>
+            <li><i class="fas fa-phone me-2"></i> (555) 123-4567</li>
+            <li><i class="fas fa-envelope me-2"></i> info@memorabiliapreserve.com</li>
+          </ul>
+        </div>
+      </div>
+      <hr class="my-4">
+      <div class="text-center">
+        <p>&copy; 2023 MemorabiliaPreserve. All rights reserved.</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Order Details Modal -->
+  <div class="modal fade" id="orderDetailsModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Order Details</h5>
+          <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body" id="orderDetailsContent">
+          <!-- Order details will be loaded here -->
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Order Tracking Modal -->
+  <div class="modal fade" id="orderTrackingModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Order Tracking</h5>
+          <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body" id="orderTrackingContent">
+          <!-- Order tracking will be loaded here -->
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Bootstrap & jQuery -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+  <script>
+    // Application state
+    let users = JSON.parse(localStorage.getItem('memorabiliapreserve_users')) || [];
+    let loggedInUser = JSON.parse(localStorage.getItem('memorabiliapreserve_loggedInUser')) || null;
+    let cart = JSON.parse(localStorage.getItem('memorabiliapreserve_cart')) || [];
+    let orders = JSON.parse(localStorage.getItem('memorabiliapreserve_orders')) || [];
+    let feedbacks = JSON.parse(localStorage.getItem('memorabiliapreserve_feedbacks')) || [];
+    let uploadedImages = [];
+    
+    // Initialize the application
+    document.addEventListener('DOMContentLoaded', function() {
+      updateUI();
+      updateCartCount();
+      loadOrders();
+      loadFeedbacks();
+      
+      // Set up payment method toggle
+      document.querySelectorAll('input[name="paymentMethod"]').forEach(radio => {
+        radio.addEventListener('change', function() {
+          if(this.value === 'credit') {
+            document.getElementById('cardDetails').style.display = 'block';
+            document.getElementById('qrPaymentDetails').classList.add('d-none');
+          } else {
+            document.getElementById('cardDetails').style.display = 'none';
+            document.getElementById('qrPaymentDetails').classList.remove('d-none');
+            generateQRCode(this.value);
+          }
+        });
+      });
+      
+      // Set up star rating
+      document.querySelectorAll('.star-rating .star').forEach(star => {
+        star.addEventListener('click', function() {
+          const rating = parseInt(this.getAttribute('data-rating'));
+          setRating(rating);
+        });
+      });
+    });
+    
+    // Generate QR code for payment
+    function generateQRCode(paymentMethod) {
+      const qrContainer = document.getElementById('qrCode');
+      qrContainer.innerHTML = '';
+      
+      // Generate a random transaction ID
+      const transactionId = 'TXN' + Date.now() + Math.floor(Math.random() * 1000);
+      let qrData = '';
+      let instructions = '';
+      
+      if (paymentMethod === 'paypal') {
+        qrData = `https://www.paypal.com/paypalme/memorabiliapreserve/${document.getElementById('totalPrice').textContent.replace('₹', '')}?tx=${transactionId}`;
+        instructions = 'Scan with PayPal app to complete payment';
+      } else if (paymentMethod === 'upi') {
+        qrData = `upi://pay?pa=memorabiliapreserve@upi&pn=MemorabiliaPreserve&am=${document.getElementById('totalPrice').textContent.replace('₹', '')}&tid=${transactionId}`;
+        instructions = 'Scan with any UPI app to complete payment';
+      }
+      
+      // Generate QR code
+      const qr = qrcode(0, 'M');
+      qr.addData(qrData);
+      qr.make();
+      
+      // Create QR code image
+      const qrImg = qr.createImgTag(4);
+      qrContainer.innerHTML = qrImg;
+      document.getElementById('paymentInstructions').textContent = instructions;
+    }
+    
+    // Update UI based on login state
+    function updateUI() {
+      if (loggedInUser) {
+        document.getElementById('userName').textContent = loggedInUser.name;
+        document.getElementById('userAvatar').innerHTML = `<span>${loggedInUser.name.charAt(0).toUpperCase()}</span>`;
+        document.getElementById('profileName').textContent = loggedInUser.name;
+        document.getElementById('profileEmail').textContent = loggedInUser.email;
+        document.getElementById('profileNameInput').value = loggedInUser.name;
+        document.getElementById('profileEmailInput').value = loggedInUser.email;
+        document.getElementById('profileAvatar').textContent = loggedInUser.name.charAt(0).toUpperCase();
+        
+        if (loggedInUser.phone) {
+          document.getElementById('profilePhone').value = loggedInUser.phone;
+        }
+        if (loggedInUser.address) {
+          document.getElementById('profileAddress').value = loggedInUser.address;
+        }
+        
+        document.getElementById('userDropdownContainer').classList.remove('d-none');
+        document.getElementById('authButtons').classList.add('d-none');
+      } else {
+        document.getElementById('userDropdownContainer').classList.add('d-none');
+        document.getElementById('authButtons').classList.remove('d-none');
+      }
+    }
+    
+    // Page navigation
+    function showPage(pageId) {
+      document.querySelectorAll('.page-section').forEach(section => {
+        section.classList.remove('active');
+      });
+      document.getElementById(pageId).classList.add('active');
+      
+      // Update active nav link
+      document.querySelectorAll('.nav-link').forEach(link => {
+        link.classList.remove('active');
+      });
+      
+      if (pageId === 'homePage') {
+        document.querySelector('.nav-link[onclick="showPage(\'homePage\')"]').classList.add('active');
+      } else if (pageId === 'servicesPage') {
+        document.querySelector('.nav-link[onclick="showPage(\'servicesPage\')"]').classList.add('active');
+      } else if (pageId === 'customizePage') {
+        document.querySelector('.nav-link[onclick="showPage(\'customizePage\')"]').classList.add('active');
+      } else if (pageId === 'ordersPage') {
+        document.querySelector('.nav-link[onclick="showPage(\'ordersPage\')"]').classList.add('active');
+      } else if (pageId === 'feedbackPage') {
+        document.querySelector('.nav-link[onclick="showPage(\'feedbackPage\')"]').classList.add('active');
+      }
+    }
+    
+    // Check authentication before navigating to protected pages
+    function checkAuthAndNavigate(pageId) {
+      if (!loggedInUser) {
+        showPage('authPage');
+        return;
+      }
+      showPage(pageId);
+    }
+    
+    // Check authentication before selecting a service
+    function checkAuthAndNavigateService(serviceName) {
+      if (!loggedInUser) {
+        showPage('authPage');
+        return;
+      }
+      selectService(serviceName);
+    }
+    
+    // Service selection
+    function selectService(serviceName) {
+      showPage('customizePage');
+      document.getElementById('preserveType').value = serviceName;
+      updatePrice();
+      updatePreviewImage();
+    }
+    
+    // Auth tab switching
+    function switchAuthTab(tab) {
+      document.querySelectorAll('.auth-tab').forEach(t => {
+        t.classList.remove('active');
+      });
+      document.querySelectorAll('.auth-content').forEach(c => {
+        c.classList.remove('active');
+      });
+      
+      if (tab === 'signin') {
+        document.querySelector('.auth-tab:nth-child(1)').classList.add('active');
+        document.getElementById('signinContent').classList.add('active');
+      } else {
+        document.querySelector('.auth-tab:nth-child(2)').classList.add('active');
+        document.getElementById('signupContent').classList.add('active');
+      }
+    }
+    
+    // Sign in function
+    function signIn() {
+      const email = document.getElementById('signinEmail').value;
+      const password = document.getElementById('signinPassword').value;
+      
+      if (!email || !password) {
+        alert('Please enter both email and password');
+        return;
+      }
+      
+      const user = users.find(u => u.email === email && u.password === password);
+      
+      if (user) {
+        loggedInUser = user;
+        localStorage.setItem('memorabiliapreserve_loggedInUser', JSON.stringify(loggedInUser));
+        updateUI();
+        showPage('homePage');
+        alert('Successfully signed in!');
+      } else {
+        alert('Invalid email or password');
+      }
+    }
+    
+    // Sign up function
+    function signUp() {
+      const name = document.getElementById('signupName').value;
+      const email = document.getElementById('signupEmail').value;
+      const password = document.getElementById('signupPassword').value;
+      const confirmPassword = document.getElementById('signupConfirmPassword').value;
+      const agreeTerms = document.getElementById('agreeTerms').checked;
+      
+      if (!name || !email || !password || !confirmPassword) {
+        alert('Please fill in all fields');
+        return;
+      }
+      
+      if (password !== confirmPassword) {
+        alert('Passwords do not match');
+        return;
+      }
+      
+      if (!agreeTerms) {
+        alert('Please agree to the terms and conditions');
+        return;
+      }
+      
+      const existingUser = users.find(u => u.email === email);
+      
+      if (existingUser) {
+        alert('An account with this email already exists');
+        return;
+      }
+      
+      const newUser = {
+        id: Date.now(),
+        name,
+        email,
+        password,
+        phone: '',
+        address: ''
+      };
+      
+      users.push(newUser);
+      localStorage.setItem('memorabiliapreserve_users', JSON.stringify(users));
+      
+      loggedInUser = newUser;
+      localStorage.setItem('memorabiliapreserve_loggedInUser', JSON.stringify(loggedInUser));
+      
+      updateUI();
+      showPage('homePage');
+      alert('Account created successfully!');
+    }
+    
+    // Wizard navigation
+    function nextStep(step) {
+      // Validate current step
+      if (step === 2) {
+        if (!document.getElementById('itemName').value) {
+          alert('Please enter an item name');
+          return;
+        }
+      }
+      
+      if (step === 3) {
+        updateOrderSummary();
+        updatePreviewImage();
+      }
+      
+      if (step === 4) {
+        updateOrderSummary();
+      }
+      
+      // Hide all steps
+      document.querySelectorAll('.wizard-step').forEach(step => {
+        step.classList.remove('active');
+      });
+      
+      // Show target step
+      document.getElementById(`step${step}`).classList.add('active');
+      
+      // Update step indicators
+      document.querySelectorAll('.step').forEach((indicator, index) => {
+        if (index < step - 1) {
+          indicator.classList.add('completed');
+          indicator.classList.remove('active');
+        } else if (index === step - 1) {
+          indicator.classList.add('active');
+          indicator.classList.remove('completed');
+        } else {
+          indicator.classList.remove('active', 'completed');
+        }
+      });
+    }
+    
+    function prevStep(step) {
+      nextStep(step);
+    }
+    
+    // Price calculation
+    function updatePrice() {
+      const service = document.getElementById('preserveType');
+      const selectedOption = service.options[service.selectedIndex];
+      const basePrice = parseInt(selectedOption.getAttribute('data-base'));
+      
+      const size = document.getElementById('sizeOption');
+      const sizeMultiplier = parseFloat(size.options[size.selectedIndex].getAttribute('data-multiplier'));
+      
+      const finish = document.getElementById('finishOption');
+      const finishAdd = parseInt(finish.options[finish.selectedIndex].getAttribute('data-add'));
+      
+      const sizePrice = basePrice * (sizeMultiplier - 1);
+      const totalPrice = basePrice * sizeMultiplier + finishAdd;
+      
+      document.getElementById('basePrice').textContent = `₹${basePrice}`;
+      document.getElementById('sizePrice').textContent = `₹${sizePrice}`;
+      document.getElementById('finishPrice').textContent = `₹${finishAdd}`;
+      document.getElementById('totalPrice').textContent = `₹${totalPrice}`;
+    }
+    
+    // Update order summary
+    function updateOrderSummary() {
+      document.getElementById('summaryService').textContent = document.getElementById('preserveType').value;
+      document.getElementById('summaryItem').textContent = document.getElementById('itemName').value;
+      document.getElementById('summarySize').textContent = document.getElementById('sizeOption').options[document.getElementById('sizeOption').selectedIndex].text;
+      document.getElementById('summaryFinish').textContent = document.getElementById('finishOption').options[document.getElementById('finishOption').selectedIndex].text;
+      
+      const message = document.getElementById('customMessage').value;
+      document.getElementById('summaryMessage').textContent = message || 'None';
+      
+      const instructions = document.getElementById('specialInstructions').value;
+      document.getElementById('summaryInstructions').textContent = instructions || 'None';
+    }
+    
+    // Update preview image based on service type
+    function updatePreviewImage() {
+      const service = document.getElementById('preserveType').value;
+      let imageUrl = '';
+      
+      switch(service) {
+        case 'Resin Preservation':
+          imageUrl = 'https://images.unsplash.com/photo-1591283319449-92f3772ad49a';
+          break;
+        case 'Glass Frame Art':
+          imageUrl = 'https://images.unsplash.com/photo-1529946825183-9b977f4b3ae1';
+          break;
+        case 'Crystal Embedding':
+          imageUrl = 'https://images.unsplash.com/photo-1501594907352-04cda38ebc29';
+          break;
+        case 'Shadow Box Display':
+          imageUrl = 'https://images.unsplash.com/photo-1586023492125-27b2c045efd7';
+          break;
+        default:
+          imageUrl = 'https://images.unsplash.com/photo-1591283319449-92f3772ad49a';
+      }
+      
+      document.getElementById('previewImage').src = imageUrl;
+    }
+    
+    // Preview uploaded images
+    function previewImages(event) {
+      const files = event.target.files;
+      const previewContainer = document.getElementById('imagePreview');
+      previewContainer.innerHTML = '';
+      uploadedImages = [];
+      
+      for (let i = 0; i < files.length && i < 5; i++) {
+        const file = files[i];
+        const reader = new FileReader();
+        
+        reader.onload = function(e) {
+          uploadedImages.push(e.target.result);
+          
+          const img = document.createElement('img');
+          img.src = e.target.result;
+          img.className = 'item-preview-small';
+          img.alt = 'Uploaded preview';
+          previewContainer.appendChild(img);
+        };
+        
+        reader.readAsDataURL(file);
+      }
+    }
+    
+    // Add to cart
+    function addToCart() {
+      if (!loggedInUser) {
+        alert('Please log in to add items to your cart');
+        return;
+      }
+      
+      // Validate shipping info if we're on step 4 or 5
+      const currentStep = document.querySelector('.wizard-step.active').id;
+      if (currentStep === 'step4' || currentStep === 'step5') {
+        const shippingName = document.getElementById('shippingName').value;
+        const shippingEmail = document.getElementById('shippingEmail').value;
+        const shippingPhone = document.getElementById('shippingPhone').value;
+        const shippingAddress = document.getElementById('shippingAddress').value;
+        
+        if (!shippingName || !shippingEmail || !shippingPhone || !shippingAddress) {
+          alert('Please fill in all shipping information before adding to cart');
+          return;
+        }
+      }
+      
+      const item = {
+        id: Date.now(),
+        service: document.getElementById('preserveType').value,
+        itemName: document.getElementById('itemName').value,
+        itemDescription: document.getElementById('itemDescription').value,
+        size: document.getElementById('sizeOption').value,
+        finish: document.getElementById('finishOption').value,
+        customMessage: document.getElementById('customMessage').value,
+        specialInstructions: document.getElementById('specialInstructions').value,
+        shipping: (currentStep === 'step4' || currentStep === 'step5') ? {
+          name: document.getElementById('shippingName').value,
+          email: document.getElementById('shippingEmail').value,
+          phone: document.getElementById('shippingPhone').value,
+          address: document.getElementById('shippingAddress').value
+        } : null,
+        images: [...uploadedImages],
+        price: parseInt(document.getElementById('totalPrice').textContent.replace('₹', '')),
+        date: new Date().toISOString()
+      };
+      
+      cart.push(item);
+      localStorage.setItem('memorabiliapreserve_cart', JSON.stringify(cart));
+      updateCartCount();
+      updateCartDisplay();
+      
+      alert('Item added to cart!');
+      showPage('cartPage');
+    }
+    
+    // Update cart count
+    function updateCartCount() {
+      document.getElementById('cartCount').textContent = cart.length;
+    }
+    
+    // Update cart display
+    function updateCartDisplay() {
+      const cartItems = document.getElementById('cartItems');
+      
+      if (cart.length === 0) {
+        cartItems.innerHTML = `
+          <div class="text-center py-5">
+            <i class="fas fa-shopping-cart fa-3x text-muted mb-3"></i>
+            <h5 class="text-muted">Your cart is empty</h5>
+            <p class="text-muted">Add some beautiful preservation items to get started!</p>
+            <button class="btn btn-primary mt-2" onclick="showPage('customizePage')">Start Preserving</button>
+          </div>
+        `;
+        document.getElementById('cartSubtotal').textContent = '₹0';
+        document.getElementById('cartShipping').textContent = '₹0';
+        document.getElementById('cartTax').textContent = '₹0';
+        document.getElementById('cartTotal').textContent = '₹0';
+        return;
+      }
+      
+      let subtotal = 0;
+      let html = '';
+      
+      cart.forEach(item => {
+        subtotal += item.price;
+        const firstImage = item.images && item.images.length > 0 ? item.images[0] : 'https://images.unsplash.com/photo-1591283319449-92f3772ad49a';
+        
+        html += `
+          <div class="cart-item">
+            <div class="row align-items-center">
+              <div class="col-md-2">
+                <img src="${firstImage}" class="item-preview-small" alt="${item.itemName}">
+              </div>
+              <div class="col-md-6">
+                <h6 class="mb-1">${item.service}</h6>
+                <p class="mb-1 text-muted">${item.itemName}</p>
+                <small class="text-muted">Size: ${item.size} | Finish: ${item.finish}</small>
+                ${item.customMessage ? `<small class="text-muted d-block">Message: ${item.customMessage}</small>` : ''}
+              </div>
+              <div class="col-md-2 text-end">
+                <span class="fw-bold">₹${item.price}</span>
+              </div>
+              <div class="col-md-2 text-end">
+                <button class="delete-btn" onclick="removeFromCart(${item.id})" title="Remove from cart">
+                  <i class="fas fa-trash"></i>
+                </button>
+              </div>
+            </div>
+          </div>
+        `;
+      });
+      
+      const shipping = subtotal > 1000 ? 0 : 100;
+      const tax = subtotal * 0.18;
+      const total = subtotal + shipping + tax;
+      
+      cartItems.innerHTML = html;
+      document.getElementById('cartSubtotal').textContent = `₹${subtotal}`;
+      document.getElementById('cartShipping').textContent = `₹${shipping}`;
+      document.getElementById('cartTax').textContent = `₹${Math.round(tax)}`;
+      document.getElementById('cartTotal').textContent = `₹${Math.round(total)}`;
+    }
+    
+    // Remove from cart
+    function removeFromCart(itemId) {
+      if (confirm('Are you sure you want to remove this item from your cart?')) {
+        cart = cart.filter(item => item.id !== itemId);
+        localStorage.setItem('memorabiliapreserve_cart', JSON.stringify(cart));
+        updateCartCount();
+        updateCartDisplay();
+      }
+    }
+    
+    // Checkout from cart
+    function checkoutFromCart() {
+      if (cart.length === 0) {
+        alert('Your cart is empty');
+        return;
+      }
+      
+      showPage('customizePage');
+      nextStep(4);
+    }
+    
+    // Calculate delivery date (10-14 days from now)
+    function calculateDeliveryDate() {
+      const deliveryDays = 10 + Math.floor(Math.random() * 5); // 10-14 days
+      const deliveryDate = new Date();
+      deliveryDate.setDate(deliveryDate.getDate() + deliveryDays);
+      return deliveryDate.toISOString().split('T')[0];
+    }
+    
+    // Place order
+    function placeOrder() {
+      if (!loggedInUser) {
+        alert('Please log in to place an order');
+        return;
+      }
+      
+      // Validate shipping info
+      const shippingName = document.getElementById('shippingName').value;
+      const shippingEmail = document.getElementById('shippingEmail').value;
+      const shippingPhone = document.getElementById('shippingPhone').value;
+      const shippingAddress = document.getElementById('shippingAddress').value;
+      
+      if (!shippingName || !shippingEmail || !shippingPhone || !shippingAddress) {
+        alert('Please fill in all shipping information');
+        return;
+      }
+      
+      // In a real app, you would process payment here
+      // For this demo, we'll just create the order
+      
+      const order = {
+        id: 'PO' + Date.now(),
+        date: new Date().toISOString(),
+        status: 'pending',
+        deliveryDate: calculateDeliveryDate(),
+        statusHistory: [
+          {
+            status: 'pending',
+            date: new Date().toISOString(),
+            description: 'Order placed and payment received'
+          }
+        ],
+        items: cart.length > 0 ? [...cart] : [{
+          service: document.getElementById('preserveType').value,
+          itemName: document.getElementById('itemName').value,
+          itemDescription: document.getElementById('itemDescription').value,
+          size: document.getElementById('sizeOption').value,
+          finish: document.getElementById('finishOption').value,
+          customMessage: document.getElementById('customMessage').value,
+          specialInstructions: document.getElementById('specialInstructions').value,
+          images: [...uploadedImages],
+          price: parseInt(document.getElementById('totalPrice').textContent.replace('₹', ''))
+        }],
+        shipping: {
+          name: shippingName,
+          email: shippingEmail,
+          phone: shippingPhone,
+          address: shippingAddress
+        },
+        total: cart.length > 0 ? 
+          parseInt(document.getElementById('cartTotal').textContent.replace('₹', '')) : 
+          parseInt(document.getElementById('totalPrice').textContent.replace('₹', ''))
+      };
+      
+      orders.push(order);
+      localStorage.setItem('memorabiliapreserve_orders', JSON.stringify(orders));
+      
+      // Clear cart if order was placed from cart
+      if (cart.length > 0) {
+        cart = [];
+        localStorage.setItem('memorabiliapreserve_cart', JSON.stringify(cart));
+        updateCartCount();
+      }
+      
+      alert(`Order placed successfully! Your order ID is ${order.id}. We'll email you a prepaid shipping label to send us your item.`);
+      showPage('ordersPage');
+      loadOrders();
+    }
+    
+    // Load orders
+    function loadOrders() {
+      const ordersList = document.getElementById('ordersList');
+      
+      if (orders.length === 0) {
+        ordersList.innerHTML = `
+          <div class="card p-4 text-center">
+            <i class="fas fa-box-open fa-3x text-muted mb-3"></i>
+            <h5 class="text-muted">No orders yet</h5>
+            <p class="text-muted">When you place orders, they will appear here</p>
+            <button class="btn btn-primary mt-2" onclick="showPage('customizePage')">Start Your First Order</button>
+          </div>
+        `;
+        return;
+      }
+      
+      let html = '';
+      
+      orders.forEach(order => {
+        let statusClass = 'status-pending';
+        if (order.status === 'processing') statusClass = 'status-processing';
+        if (order.status === 'completed') statusClass = 'status-completed';
+        if (order.status === 'shipped') statusClass = 'status-shipped';
+        if (order.status === 'cancelled') statusClass = 'status-cancelled';
+        if (order.status === 'delivered') statusClass = 'status-delivered';
+        
+        const firstItem = order.items[0];
+        const firstImage = firstItem.images && firstItem.images.length > 0 ? firstItem.images[0] : 'https://images.unsplash.com/photo-1591283319449-92f3772ad49a';
+        
+        html += `
+          <div class="card order-card p-4 mb-3">
+            <div class="d-flex justify-content-between align-items-start mb-3">
+              <div>
+                <h5 class="mb-1">Order #${order.id}</h5>
+                <p class="text-muted mb-0">Placed on ${new Date(order.date).toLocaleDateString()}</p>
+                <div class="delivery-badge mt-1">
+                  <i class="fas fa-shipping-fast me-1"></i> Est. Delivery: ${new Date(order.deliveryDate).toLocaleDateString()}
+                </div>
+              </div>
+              <span class="order-status ${statusClass}">${order.status.charAt(0).toUpperCase() + order.status.slice(1)}</span>
+            </div>
+            
+            <div class="mb-3">
+              <div class="d-flex">
+                <img src="${firstImage}" class="item-preview-small" alt="${firstItem.itemName}">
+                <div class="flex-grow-1">
+                  <h6 class="mb-1">${firstItem.service}</h6>
+                  <p class="mb-1 text-muted">${firstItem.itemName}</p>
+                  <small class="text-muted">Size: ${firstItem.size} | Finish: ${firstItem.finish}</small>
+                </div>
+                <div class="text-end">
+                  <span class="fw-bold">₹${firstItem.price}</span>
+                </div>
+              </div>
+              ${order.items.length > 1 ? `<p class="mt-2 mb-0 text-muted">+ ${order.items.length - 1} more item(s)</p>` : ''}
+            </div>
+            
+            <div class="d-flex justify-content-between align-items-center">
+              <div>
+                <strong>Total: ₹${order.total}</strong>
+              </div>
+              <div>
+                <button class="btn btn-outline-primary btn-sm me-2" onclick="trackOrder('${order.id}')">Track Order</button>
+                <button class="btn btn-outline-secondary btn-sm me-2" onclick="viewOrderDetails('${order.id}')">View Details</button>
+                ${order.status === 'pending' || order.status === 'processing' ? 
+                  `<button class="btn btn-outline-danger btn-sm" onclick="cancelOrder('${order.id}')">Cancel Order</button>` : ''}
+              </div>
+            </div>
+          </div>
+        `;
+      });
+      
+      ordersList.innerHTML = html;
+    }
+    
+    // Cancel order
+    function cancelOrder(orderId) {
+      if (confirm('Are you sure you want to cancel this order?')) {
+        // Remove order from orders array
+        orders = orders.filter(order => order.id !== orderId);
+        localStorage.setItem('memorabiliapreserve_orders', JSON.stringify(orders));
+        loadOrders();
+        alert('Order has been cancelled successfully.');
+      }
+    }
+    
+    // View order details
+    function viewOrderDetails(orderId) {
+      const order = orders.find(o => o.id === orderId);
+      if (!order) return;
+      
+      let detailsHtml = `
+        <div class="row">
+          <div class="col-md-6">
+            <h6>Order Information</h6>
+            <p><strong>Order ID:</strong> ${order.id}</p>
+            <p><strong>Order Date:</strong> ${new Date(order.date).toLocaleDateString()}</p>
+            <p><strong>Status:</strong> <span class="order-status ${getStatusClass(order.status)}">${order.status.charAt(0).toUpperCase() + order.status.slice(1)}</span></p>
+            <p><strong>Estimated Delivery:</strong> ${new Date(order.deliveryDate).toLocaleDateString()}</p>
+            <p><strong>Total Amount:</strong> ₹${order.total}</p>
+          </div>
+          <div class="col-md-6">
+            <h6>Shipping Information</h6>
+            <p><strong>Name:</strong> ${order.shipping.name}</p>
+            <p><strong>Email:</strong> ${order.shipping.email}</p>
+            <p><strong>Phone:</strong> ${order.shipping.phone}</p>
+            <p><strong>Address:</strong> ${order.shipping.address}</p>
+          </div>
+        </div>
+        
+        <hr>
+        
+        <h6>Order Items</h6>
+      `;
+      
+      order.items.forEach(item => {
+        const firstImage = item.images && item.images.length > 0 ? item.images[0] : 'https://images.unsplash.com/photo-1591283319449-92f3772ad49a';
+        
+        detailsHtml += `
+          <div class="card mb-3">
+            <div class="card-body">
+              <div class="row">
+                <div class="col-md-3">
+                  <img src="${firstImage}" class="img-fluid rounded" alt="${item.itemName}">
+                </div>
+                <div class="col-md-9">
+                  <h5>${item.service}</h5>
+                  <p><strong>Item:</strong> ${item.itemName}</p>
+                  <p><strong>Description:</strong> ${item.itemDescription}</p>
+                  <p><strong>Size:</strong> ${item.size}</p>
+                  <p><strong>Finish:</strong> ${item.finish}</p>
+                  ${item.customMessage ? `<p><strong>Custom Message:</strong> ${item.customMessage}</p>` : ''}
+                  ${item.specialInstructions ? `<p><strong>Special Instructions:</strong> ${item.specialInstructions}</p>` : ''}
+                  <p><strong>Price:</strong> ₹${item.price}</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        `;
+      });
+      
+      document.getElementById('orderDetailsContent').innerHTML = detailsHtml;
+      
+      const modal = new bootstrap.Modal(document.getElementById('orderDetailsModal'));
+      modal.show();
+    }
+    
+    // Track order
+    function trackOrder(orderId) {
+      const order = orders.find(o => o.id === orderId);
+      if (!order) return;
+      
+      let trackingHtml = `
+        <div class="row mb-4">
+          <div class="col-md-6">
+            <h6>Order Information</h6>
+            <p><strong>Order ID:</strong> ${order.id}</p>
+            <p><strong>Order Date:</strong> ${new Date(order.date).toLocaleDateString()}</p>
+            <p><strong>Status:</strong> <span class="order-status ${getStatusClass(order.status)}">${order.status.charAt(0).toUpperCase() + order.status.slice(1)}</span></p>
+            <p><strong>Estimated Delivery:</strong> ${new Date(order.deliveryDate).toLocaleDateString()}</p>
+          </div>
+          <div class="col-md-6">
+            <h6>Shipping Information</h6>
+            <p><strong>Name:</strong> ${order.shipping.name}</p>
+            <p><strong>Address:</strong> ${order.shipping.address}</p>
+          </div>
+        </div>
+        
+        <h6>Order Tracking</h6>
+        <div class="timeline">
+      `;
+      
+      // Define status order for timeline
+      const statusOrder = ['pending', 'processing', 'completed', 'shipped', 'delivered'];
+      const currentStatusIndex = statusOrder.indexOf(order.status);
+      
+      order.statusHistory.forEach((history, index) => {
+        const isActive = index === order.statusHistory.length - 1;
+        const isCompleted = statusOrder.indexOf(history.status) < currentStatusIndex;
+        
+        trackingHtml += `
+          <div class="timeline-item ${isActive ? 'active' : ''} ${isCompleted ? 'completed' : ''}">
+            <h6>${history.status.charAt(0).toUpperCase() + history.status.slice(1)}</h6>
+            <p class="mb-1">${history.description}</p>
+            <p class="timeline-date">${new Date(history.date).toLocaleString()}</p>
+          </div>
+        `;
+      });
+      
+      trackingHtml += `</div>`;
+      
+      document.getElementById('orderTrackingContent').innerHTML = trackingHtml;
+      
+      const modal = new bootstrap.Modal(document.getElementById('orderTrackingModal'));
+      modal.show();
+    }
+    
+    // Get status class for order details
+    function getStatusClass(status) {
+      switch(status) {
+        case 'pending': return 'status-pending';
+        case 'processing': return 'status-processing';
+        case 'completed': return 'status-completed';
+        case 'shipped': return 'status-shipped';
+        case 'cancelled': return 'status-cancelled';
+        case 'delivered': return 'status-delivered';
+        default: return 'status-pending';
+      }
+    }
+    
+    // Update profile
+    function updateProfile() {
+      if (!loggedInUser) return;
+      
+      loggedInUser.name = document.getElementById('profileNameInput').value;
+      loggedInUser.email = document.getElementById('profileEmailInput').value;
+      loggedInUser.phone = document.getElementById('profilePhone').value;
+      loggedInUser.address = document.getElementById('profileAddress').value;
+      
+      // Update in users array
+      const userIndex = users.findIndex(u => u.email === loggedInUser.email);
+      if (userIndex !== -1) {
+        users[userIndex] = loggedInUser;
+      }
+      
+      localStorage.setItem('memorabiliapreserve_loggedInUser', JSON.stringify(loggedInUser));
+      localStorage.setItem('memorabiliapreserve_users', JSON.stringify(users));
+      
+      updateUI();
+      alert('Profile updated successfully!');
+    }
+    
+    // Star rating functionality
+    function setRating(rating) {
+      document.getElementById('ratingValue').value = rating;
+      
+      document.querySelectorAll('.star-rating .star').forEach((star, index) => {
+        if (index < rating) {
+          star.innerHTML = '<i class="fas fa-star"></i>';
+          star.classList.add('active');
+        } else {
+          star.innerHTML = '<i class="far fa-star"></i>';
+          star.classList.remove('active');
+        }
+      });
+    }
+    
+    // Submit feedback
+    function submitFeedback() {
+      const rating = parseInt(document.getElementById('ratingValue').value);
+      const name = document.getElementById('feedbackName').value;
+      const email = document.getElementById('feedbackEmail').value;
+      const service = document.getElementById('feedbackService').value;
+      const message = document.getElementById('feedbackMessage').value;
+      
+      if (!rating || !name || !email || !service || !message) {
+        alert('Please fill in all fields and provide a rating');
+        return;
+      }
+      
+      const feedback = {
+        id: Date.now(),
+        rating,
+        name,
+        email,
+        service,
+        message,
+        date: new Date().toISOString()
+      };
+      
+      feedbacks.push(feedback);
+      localStorage.setItem('memorabiliapreserve_feedbacks', JSON.stringify(feedbacks));
+      
+      // Reset form
+      setRating(0);
+      document.getElementById('feedbackName').value = '';
+      document.getElementById('feedbackEmail').value = '';
+      document.getElementById('feedbackService').value = '';
+      document.getElementById('feedbackMessage').value = '';
+      
+      loadFeedbacks();
+      alert('Thank you for your feedback!');
+    }
+    
+    // Load feedbacks
+    function loadFeedbacks() {
+      const feedbackList = document.getElementById('feedbackList');
+      
+      if (feedbacks.length === 0) {
+        feedbackList.innerHTML = `
+          <div class="card p-4 text-center">
+            <i class="fas fa-comments fa-3x text-muted mb-3"></i>
+            <h5 class="text-muted">No feedback yet</h5>
+            <p class="text-muted">Be the first to share your experience!</p>
+          </div>
+        `;
+        return;
+      }
+      
+      let html = '';
+      
+      feedbacks.forEach(feedback => {
+        let stars = '';
+        for (let i = 1; i <= 5; i++) {
+          if (i <= feedback.rating) {
+            stars += '<i class="fas fa-star text-warning"></i>';
+          } else {
+            stars += '<i class="far fa-star text-warning"></i>';
+          }
+        }
+        
+        html += `
+          <div class="card feedback-card p-3 mb-3">
+            <div class="d-flex justify-content-between align-items-start mb-2">
+              <h5 class="mb-0">${feedback.name}</h5>
+              <div class="rating">
+                ${stars}
+              </div>
+            </div>
+            <p class="text-muted mb-2">Service: ${feedback.service}</p>
+            <p class="mb-2">${feedback.message}</p>
+            <small class="text-muted">${new Date(feedback.date).toLocaleDateString()}</small>
+          </div>
+        `;
+      });
+      
+      feedbackList.innerHTML = html;
+    }
+    
+    // Logout
+    function logout() {
+      loggedInUser = null;
+      localStorage.removeItem('memorabiliapreserve_loggedInUser');
+      updateUI();
+      showPage('homePage');
+    }
+  </script>
+</body>
+</html>
